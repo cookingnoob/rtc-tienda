@@ -1,0 +1,28 @@
+body{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.filter{
+width: 20vw;
+height: 100%;
+border: 1px solid beige;
+}
+.products{
+width: 80vw;
+height: 100%;
+display: grid;
+grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+}
+.itemContainer{
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  height: ;
+  display: flex;
+  flex-direction: column;
+
+}
+.itemContainer > img {
+  width: 80%;
+}
