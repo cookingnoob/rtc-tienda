@@ -52,45 +52,48 @@ products.forEach(product => renderElements(product));
 
 //Filtros:
 //filtros por vendedor
-const filterSellerTemplate = () => {
-  return `
-  <select name="seller" id="seller">
-    <option value="default">Todos</option>
-    <option value="apple">Apple</option>
-    <option value="hp">HP</option>
-    <option value="dell">Dell</option>
-    <option value="huawei">Huawei</option>
-  </select>`
-};
+// const filterSellerTemplate = () => {
+//   return `
+//   <select name="seller" id="seller">
+//     <option value="default">Todos</option>
+//     <option value="apple">Apple</option>
+//     <option value="hp">HP</option>
+//     <option value="dell">Dell</option>
+//     <option value="huawei">Huawei</option>
+//   </select>`
+// };
 
-const renderSellerFilter = () => {
-  let filters = filterSellerTemplate();
-  filterSection.innerHTML += filters
-};
+// const renderSellerFilter = () => {
+//   let filters = filterSellerTemplate();
+//   filterSection.innerHTML += filters
+// };
+// renderSellerFilter();
 
-renderSellerFilter();
+const selectFilter = document.getElementById('seller');
+selectFilter.addEventListener('change', function () {
+  console.log('hola')
+})
 
-let selectFilter = document.querySelector('#seller');
 
-selectFilter.addEventListener('change', console.log('hola')
-  //const sellerFilter () => {
-  //toma el valor de la casilla de select
-  //filtra los elementos del array que incluyen el nombre del select
-  //products.filter(product => product.seller == 'Apple')
-  //limpia el DOM
-  //invoca render con los elementos filtrados
-  //});
-);
+//toma el valor de la casilla de select
+//filtra los elementos del array que incluyen el nombre del select
+//products.filter(product => product.seller == 'Apple')
+//limpia el DOM
+//invoca render con los elementos filtrados
+
+
+
+
 
 // filtro por numero
 const filterByPriceTags = () => {
   return `
   <label for="1000">$1000</label>
-  <input type="radio" name="1000" id="1000">
+  <input type="radio" name="1000" id="1000" class="price">
   <label for="1500">$1500</label>
-  <input type="radio" name="1500" id="1500">
+  <input type="radio" name="1500" id="1500" class="price">
   <label for="1000">$2000</label>
-  <input type="radio" name="2000" id="2000">
+  <input type="radio" name="2000" id="2000" class="price">
 `
 }
 const renderFilterByPrice = () => {
@@ -98,6 +101,13 @@ const renderFilterByPrice = () => {
   filterSection.innerHTML += priceTags
 }
 renderFilterByPrice()
+
+const priceFilters = document.querySelectorAll('.price');
+priceFilters.forEach(element => {
+  element.addEventListener('click', function () {
+    console.log('hola')
+  })
+});
 //product.filter (product === 'precio del checkbox')
 //si el numero es menor a lo marcado se eliminan del DOM
 
