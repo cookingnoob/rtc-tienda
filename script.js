@@ -1,7 +1,6 @@
 //Elementos DOM
 let productsSection = document.querySelector('.products');
 let filterSection = document.querySelector('.filter');
-
 // Productos
 const products = [];
 
@@ -49,40 +48,36 @@ const renderElements = (product) => {
 
 products.forEach(product => renderElements(product));
 
-
 //Filtros:
 //filtros por vendedor
-// const filterSellerTemplate = () => {
-//   return `
-//   <select name="seller" id="seller">
-//     <option value="default">Todos</option>
-//     <option value="apple">Apple</option>
-//     <option value="hp">HP</option>
-//     <option value="dell">Dell</option>
-//     <option value="huawei">Huawei</option>
-//   </select>`
-// };
+const filterSellerTemplate = () => {
+  return `
+  <select name="seller" id="seller">
+    <option value="default">Todos</option>
+    <option value="apple">Apple</option>
+    <option value="hp">HP</option>
+    <option value="dell">Dell</option>
+    <option value="huawei">Huawei</option>
+  </select>`
+};
 
-// const renderSellerFilter = () => {
-//   let filters = filterSellerTemplate();
-//   filterSection.innerHTML += filters
-// };
-// renderSellerFilter();
+const renderSellerFilter = () => {
+  let filters = filterSellerTemplate();
+  filterSection.innerHTML += filters
+};
+renderSellerFilter();
 
-const selectFilter = document.getElementById('seller');
-selectFilter.addEventListener('change', function () {
-  console.log('hola')
-})
+const selectSeller = document.querySelector('.sellers');
+// selectSeller.addEventListener('change', (event) => {
+//   console.log(`${event.target.value}`)
+// })
 
-
-//toma el valor de la casilla de select
-//filtra los elementos del array que incluyen el nombre del select
-//products.filter(product => product.seller == 'Apple')
-//limpia el DOM
-//invoca render con los elementos filtrados
-
-
-
+const filteredSellers = () => {
+  productsSection.innerHTML = '';
+  seller = products.filter(product => product.seller == 'Apple');
+  seller.forEach(seller => renderElements(seller))
+};
+filteredSellers()
 
 
 // filtro por numero
@@ -103,11 +98,20 @@ const renderFilterByPrice = () => {
 renderFilterByPrice()
 
 const priceFilters = document.querySelectorAll('.price');
-priceFilters.forEach(element => {
-  element.addEventListener('click', function () {
-    console.log('hola')
-  })
-});
+
+// priceFilters.forEach(element => {
+//   element.addEventListener('click', function () {
+//     console.log('hola')
+//   })
+// });
+
+const filteredPrices = () => {
+  productsSection.innerHTML = '';
+  price = products.filter(product => product.price == 1000);
+  price.forEach(product => renderElements(product))
+}
+filteredPrices()
+
 //product.filter (product === 'precio del checkbox')
 //si el numero es menor a lo marcado se eliminan del DOM
 
