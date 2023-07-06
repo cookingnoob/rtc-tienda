@@ -110,7 +110,7 @@ const filteredPrices = () => {
   price = products.filter(product => product.price == 1000);
   price.forEach(product => renderElements(product))
 }
-// filteredPrices()
+filteredPrices()
 
 //product.filter (product === 'precio del checkbox')
 //si el numero es menor a lo marcado se eliminan del DOM
@@ -128,9 +128,6 @@ renderDeleteButton();
 let deleteButton = document.querySelector('.delete');
 
 deleteButton.addEventListener('click', function () {
-  console.log('hola')
-  //const deleteFilters = () => {
-  //elimina el DOM
-  //hace render del array original
-  // }
+  productsSection.innerHTML = ''
+  products.forEach(product => renderElements(product));
 })
