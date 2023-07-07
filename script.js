@@ -52,12 +52,12 @@ products.forEach(product => renderElements(product));
 //filtros por vendedor
 const filterSellerTemplate = () => {
   return `
-  <select name="seller" id="seller">
-    <option value="default">Todos</option>
-    <option value="apple">Apple</option>
-    <option value="hp">HP</option>
-    <option value="dell">Dell</option>
-    <option value="huawei">Huawei</option>
+  <select name="seller" id="sellers" class="sellers">
+    <option class="sellerOption" value="default">Todos</option>
+    <option class="sellerOption" value="apple">Apple</option>
+    <option class="sellerOption" value="hp">HP</option>
+    <option class="sellerOption" value="dell">Dell</option>
+    <option class="sellerOption" value="huawei">Huawei</option>
   </select>`
 };
 
@@ -67,10 +67,14 @@ const renderSellerFilter = () => {
 };
 renderSellerFilter();
 
-const selectSeller = document.querySelector('.sellers');
+const sellerSection = document.querySelector('.sellers');
+const selectSeller = document.querySelectorAll('.sellerOption');
+
+
 // selectSeller.addEventListener('change', (event) => {
 //   console.log(`${event.target.value}`)
 // })
+
 
 const filteredSellers = () => {
   productsSection.innerHTML = '';
@@ -84,11 +88,11 @@ const filteredSellers = () => {
 const filterByPriceTags = () => {
   return `
   <label for="1000">$1000</label>
-  <input type="radio" name="1000" id="1000" class="price">
+  <input type="radio" name="1000" id="1000" class="priceInput">
   <label for="1500">$1500</label>
-  <input type="radio" name="1500" id="1500" class="price">
+  <input type="radio" name="1500" id="1500" class="priceInput">
   <label for="1000">$2000</label>
-  <input type="radio" name="2000" id="2000" class="price">
+  <input type="radio" name="2000" id="2000" class="priceInput">
 `
 }
 const renderFilterByPrice = () => {
@@ -97,13 +101,13 @@ const renderFilterByPrice = () => {
 }
 renderFilterByPrice()
 
-const priceFilters = document.querySelectorAll('.price');
+const priceFilters = document.querySelectorAll('.priceInput');
 
-// priceFilters.forEach(element => {
-//   element.addEventListener('click', function () {
-//     console.log('hola')
-//   })
-// });
+priceFilters.forEach(element => {
+  element.addEventListener('click', function () {
+    console.log('hola')
+  })
+});
 
 const filteredPrices = () => {
   productsSection.innerHTML = '';
@@ -131,3 +135,10 @@ deleteButton.addEventListener('click', function () {
   productsSection.innerHTML = ''
   products.forEach(product => renderElements(product));
 })
+
+
+console.log(sellerSection);
+
+console.log(priceFilters);
+
+selectSeller.forEach(seller => console.log(seller))
