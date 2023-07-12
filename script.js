@@ -59,6 +59,9 @@ products.forEach(product => renderProductElements(product));
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
 const selectSellerFilter = document.getElementById('sellersOption');
+let radio1000 = document.getElementById('1000');
+let radio1500 = document.getElementById('1500');
+let radio2000 = document.getElementById('2000');
 
 //fabrica de vendedores
 const SELLER_OPTIONS = {
@@ -94,6 +97,9 @@ const filteredPrices = (price) => {
 const deleteFilters = () => {
   productsSection.innerHTML = ''
   products.forEach(product => renderProductElements(product));
+  radio1000.checked = false;
+  radio1500.checked = false;
+  radio2000.checked = false
 };
 
 //EventListeners
@@ -104,12 +110,6 @@ selectSellerFilter.addEventListener('change', (ev) => {
   const selectedSellerCapital = selectedSeller.charAt(0).toUpperCase() + selectedSeller.slice(1);
   filteredSellers(selectedSellerCapital)
 });
-
-
-
-let radio1000 = document.getElementById('1000');
-let radio1500 = document.getElementById('1500');
-let radio2000 = document.getElementById('2000');
 
 radio1000.addEventListener('change', (ev) => {
   filteredPrices(ev.target.value)
