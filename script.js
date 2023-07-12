@@ -1,3 +1,7 @@
+//Elementos HMTL DOM
+let productsSection = document.querySelector('.products');
+let filterSection = document.querySelector('.filter');
+
 //template string tags 
 const templateProductTags = (product) => {
   return ` <div class="itemContainer">
@@ -11,12 +15,12 @@ const templateProductTags = (product) => {
 };
 const filterSellerTemplate = () => {
   return `
-  <select name="seller" id="sellers" class="sellers">
-    <option class="sellerOption" value="default">Todos</option>
-    <option class="sellerOption" value="apple">Apple</option>
-    <option class="sellerOption" value="hp">HP</option>
-    <option class="sellerOption" value="dell">Dell</option>
-    <option class="sellerOption" value="huawei">Huawei</option>
+  <select name="seller" id="sellersOption">
+    <option value="default">Todos</option>
+    <option value="apple">Apple</option>
+    <option value="hp">HP</option>
+    <option value="dell">Dell</option>
+    <option value="huawei">Huawei</option>
   </select>`
 };
 const filterByPriceTags = () => {
@@ -29,7 +33,7 @@ const filterByPriceTags = () => {
   <input type="radio" name="2000" id="2000" class="priceInput">`
 };
 const deleteButtonTags = () => {
-  return `<button class="delete"></button>`
+  return `<button class="delete">Borrar filtros</button>`
 };
 
 //Render de los template strings
@@ -50,10 +54,6 @@ const renderDeleteButton = () => {
   filterSection.innerHTML += deleteButton;
 };
 
-//Elementos HMTL DOM
-let productsSection = document.querySelector('.products');
-let filterSection = document.querySelector('.filter');
-
 // Productos y fábrica de productos
 const products = [];
 const createProduct = (name, price, stars, reviews, seller, image) => {
@@ -71,8 +71,8 @@ const listOfProducts = () => {
   let macBookAir12 = createProduct('Macbook Air', 1000, 4, 100, 'Apple',)
   let macBookPro = createProduct('Macbook Pro', 1500, 4, 3, 'Apple')
   let macBookProMax = createProduct('Macbook Pro Max', 2000, 1, 1, 'Apple')
-  let hpEssential = createProduct('HP Essentials', 1000, 4, 200, 'HP')
-  let hpPro = createProduct('HP Pro', 1500, 4, 10, 'HP')
+  let hpEssential = createProduct('HP Essentials', 1000, 4, 200, 'Hp')
+  let hpPro = createProduct('HP Pro', 1500, 4, 10, 'Hp')
   let alienWare12 = createProduct('Alienware 12"', 1000, 3, 20, 'Dell')
   let alienWarePro = createProduct('Alienware Pro', 1500, 4, 20, 'Dell')
   let alienWareProMax = createProduct('Alienware Pro Max', 2000, 5, 2, 'Dell')
@@ -83,36 +83,61 @@ listOfProducts();
 
 //invocación del render y agregarlo al DOM
 products.forEach(product => renderProductElements(product));
-renderSellerFilter();
-const sellerSection = document.querySelector('#sellers');
-const selectSeller = document.querySelectorAll('.sellerOption');
-renderFilterByPrice();
+// renderSellerFilter();
+// const sellerSection = document.getElementById('sellersOption');
+// renderFilterByPrice();
 const priceFilters = document.querySelectorAll('.priceInput');
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
 
-//filtros
-const filteredSellers = () => {
-  productsSection.innerHTML = '';
-  seller = products.filter(product => product.seller == 'Apple');
-  seller.forEach(seller => renderProductElements(seller))
-};
-filteredSellers();
+//filtro por vendedor
+
+
+//filtro por precio
 const filteredPrices = () => {
   productsSection.innerHTML = '';
   price = products.filter(product => product.price == 1000);
   price.forEach(product => renderProductElements(product))
 }
+//borrar filtros
 const deleteFilters = () => {
   productsSection.innerHTML = ''
   products.forEach(product => renderProductElements(product));
 };
 
 //EventListeners
+deleteButton.addEventListener('click', deleteFilters);
 
 
-sellerSection.addEventListener('change', (ev) => {
-  console.log(ev.target)
+
+const selectSellerFilter = document.getElementById('sellersOption');
+
+const SELLER_OPTIONS = {
+  'apple': 'Apple',
+  'hp': 'HP',
+  'dell': 'Dell',
+  'huawei': 'Huawei',
+}
+
+const addOptionsToSellerFilter = () => {
+  Object.keys(SELLER_OPTIONS).forEach((seller) => {
+    const option = document.createElement('option');
+    option.value = seller;
+    option.innerText = SELLER_OPTIONS[seller];
+    selectSellerFilter.append(option);
+  });
+};
+addOptionsToSellerFilter();
+
+const filteredSellers = (selectedSeller) => {
+  productsSection.innerHTML = '';
+  seller = products.filter(product => product.seller == selectedSeller);
+  seller.forEach(seller => renderProductElements(seller))
+};
+
+selectSellerFilter.addEventListener('change', (ev) => {
+  const selectedSeller = ev.target.value;
+  const selectedSellerCapital = selectedSeller.charAt(0).toUpperCase() + selectedSeller.slice(1);
+  filteredSellers(selectedSellerCapital)
 });
 
-deleteButton.addEventListener('click', deleteFilters);

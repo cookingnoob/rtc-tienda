@@ -26,3 +26,7 @@ grid-template: repeat(2, 1fr) / repeat(5, 1fr);
 .itemContainer > img {
   width: 80%;
 }
+.itemContainer:hover{
+  cursor: pointer;
+  background-color: rgb(215, 214, 214);
+}
