@@ -1,9 +1,61 @@
-//Elementos DOM
+//template string tags 
+const templateProductTags = (product) => {
+  return ` <div class="itemContainer">
+ <p class="name">${product.name}</p>
+ <p class="seller">${product.seller}</p>
+ <p class="price">$${product.price}</p>
+ <p class="stars">Estrellas: ${product.stars}</p>
+ <p class="reviews">Reviews: ${product.reviews}</p>
+</div>`
+  /* <img src="${product.image}" alt="${product.name}"> */
+};
+const filterSellerTemplate = () => {
+  return `
+  <select name="seller" id="sellers" class="sellers">
+    <option class="sellerOption" value="default">Todos</option>
+    <option class="sellerOption" value="apple">Apple</option>
+    <option class="sellerOption" value="hp">HP</option>
+    <option class="sellerOption" value="dell">Dell</option>
+    <option class="sellerOption" value="huawei">Huawei</option>
+  </select>`
+};
+const filterByPriceTags = () => {
+  return `
+  <label for="1000">$1000</label>
+  <input type="radio" name="1000" id="1000" class="priceInput">
+  <label for="1500">$1500</label>
+  <input type="radio" name="1500" id="1500" class="priceInput">
+  <label for="1000">$2000</label>
+  <input type="radio" name="2000" id="2000" class="priceInput">`
+};
+const deleteButtonTags = () => {
+  return `<button class="delete"></button>`
+};
+
+//Render de los template strings
+const renderProductElements = (product) => {
+  let template = templateProductTags(product);
+  productsSection.innerHTML += template
+};
+const renderSellerFilter = () => {
+  let filters = filterSellerTemplate();
+  filterSection.innerHTML += filters
+};
+const renderFilterByPrice = () => {
+  let priceTags = filterByPriceTags();
+  filterSection.innerHTML += priceTags
+};
+const renderDeleteButton = () => {
+  const deleteButton = deleteButtonTags();
+  filterSection.innerHTML += deleteButton;
+};
+
+//Elementos HMTL DOM
 let productsSection = document.querySelector('.products');
 let filterSection = document.querySelector('.filter');
-// Productos
-const products = [];
 
+// Productos y fábrica de productos
+const products = [];
 const createProduct = (name, price, stars, reviews, seller, image) => {
   let product = {
     name: name,
@@ -15,7 +67,6 @@ const createProduct = (name, price, stars, reviews, seller, image) => {
   };
   products.push(product);
 };
-
 const listOfProducts = () => {
   let macBookAir12 = createProduct('Macbook Air', 1000, 4, 100, 'Apple',)
   let macBookPro = createProduct('Macbook Pro', 1500, 4, 3, 'Apple')
@@ -27,118 +78,41 @@ const listOfProducts = () => {
   let alienWareProMax = createProduct('Alienware Pro Max', 2000, 5, 2, 'Dell')
   let huaweiOne = createProduct('Huawei One', 1000, 2, 4, 'Huawei')
   let huaweiTwo = createProduct('Huawei Two', 1500, 5, 4, 'Huawei')
-}
-
+};
 listOfProducts();
-const templateTags = (product) => {
-  return ` <div class="itemContainer">
- <img src="${product.image}" alt="${product.name}">
- <p class="name">${product.name}</p>
- <p class="seller">${product.seller}</p>
- <p class="price">$${product.price}</p>
- <p class="stars">Estrellas: ${product.stars}</p>
- <p class="reviews">Reviews: ${product.reviews}</p>
-</div>`
-};
 
-const renderElements = (product) => {
-  let template = templateTags(product);
-  productsSection.innerHTML += template
-};
-
-products.forEach(product => renderElements(product));
-
-//Filtros:
-//filtros por vendedor
-const filterSellerTemplate = () => {
-  return `
-  <select name="seller" id="sellers" class="sellers">
-    <option class="sellerOption" value="default">Todos</option>
-    <option class="sellerOption" value="apple">Apple</option>
-    <option class="sellerOption" value="hp">HP</option>
-    <option class="sellerOption" value="dell">Dell</option>
-    <option class="sellerOption" value="huawei">Huawei</option>
-  </select>`
-};
-
-const renderSellerFilter = () => {
-  let filters = filterSellerTemplate();
-  filterSection.innerHTML += filters
-};
+//invocación del render y agregarlo al DOM
+products.forEach(product => renderProductElements(product));
 renderSellerFilter();
-
-const sellerSection = document.querySelector('.sellers');
+const sellerSection = document.querySelector('#sellers');
 const selectSeller = document.querySelectorAll('.sellerOption');
+renderFilterByPrice();
+const priceFilters = document.querySelectorAll('.priceInput');
+renderDeleteButton();
+const deleteButton = document.querySelector('.delete');
 
-
-// selectSeller.addEventListener('change', (event) => {
-//   console.log(`${event.target.value}`)
-// })
-
-
+//filtros
 const filteredSellers = () => {
   productsSection.innerHTML = '';
   seller = products.filter(product => product.seller == 'Apple');
-  seller.forEach(seller => renderElements(seller))
+  seller.forEach(seller => renderProductElements(seller))
 };
-// filteredSellers()
-
-
-// filtro por numero
-const filterByPriceTags = () => {
-  return `
-  <label for="1000">$1000</label>
-  <input type="radio" name="1000" id="1000" class="priceInput">
-  <label for="1500">$1500</label>
-  <input type="radio" name="1500" id="1500" class="priceInput">
-  <label for="1000">$2000</label>
-  <input type="radio" name="2000" id="2000" class="priceInput">
-`
-}
-const renderFilterByPrice = () => {
-  let priceTags = filterByPriceTags();
-  filterSection.innerHTML += priceTags
-}
-renderFilterByPrice()
-
-const priceFilters = document.querySelectorAll('.priceInput');
-
-priceFilters.forEach(element => {
-  element.addEventListener('click', function () {
-    console.log('hola')
-  })
-});
-
+filteredSellers();
 const filteredPrices = () => {
   productsSection.innerHTML = '';
   price = products.filter(product => product.price == 1000);
-  price.forEach(product => renderElements(product))
+  price.forEach(product => renderProductElements(product))
 }
-filteredPrices()
-
-//product.filter (product === 'precio del checkbox')
-//si el numero es menor a lo marcado se eliminan del DOM
-
-//Boton eliminar filtros:
-const deleteButtonTags = () => {
-  return `<button class="delete"></button>`
-}
-const renderDeleteButton = () => {
-  const deleteButton = deleteButtonTags();
-  filterSection.innerHTML += deleteButton;
-}
-renderDeleteButton();
-
-let deleteButton = document.querySelector('.delete');
-
-deleteButton.addEventListener('click', function () {
+const deleteFilters = () => {
   productsSection.innerHTML = ''
-  products.forEach(product => renderElements(product));
-})
+  products.forEach(product => renderProductElements(product));
+};
+
+//EventListeners
 
 
-console.log(sellerSection);
+sellerSection.addEventListener('change', (ev) => {
+  console.log(ev.target)
+});
 
-console.log(priceFilters);
-
-selectSeller.forEach(seller => console.log(seller))
+deleteButton.addEventListener('click', deleteFilters);
