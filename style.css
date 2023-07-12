@@ -13,6 +13,7 @@ width: 80vw;
 height: 100%;
 display: grid;
 grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+gap: 10px;
 }
 .itemContainer{
   border: 1px solid black;
@@ -21,7 +22,7 @@ grid-template: repeat(2, 1fr) / repeat(5, 1fr);
   height: ;
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
 }
 .itemContainer > img {
   width: 80%;
@@ -29,4 +30,38 @@ grid-template: repeat(2, 1fr) / repeat(5, 1fr);
 .itemContainer:hover{
   cursor: pointer;
   background-color: rgb(215, 214, 214);
+}
+
+@media (max-width: 800px) {
+  body{
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+  }
+  .filter{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .products{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    }
+  #filterByNumber,
+  #sellersOption,
+  .delete{
+    height: 50px;
+    width: 100px;
+    font-size: large;
+  }
+  .delete{
+    background-color: rgb(118, 118, 118);
+    color: whitesmoke;
+    top: -20px;
+  }
 }
