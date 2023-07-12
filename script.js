@@ -1,7 +1,8 @@
 //Elementos HMTL DOM
 let productsSection = document.querySelector('.products');
 let filterSection = document.querySelector('.filter');
-
+let priceFilterSection = document.querySelector('.priceFilterContainer');
+let sellerFilterSection = document.querySelector('.sellerFilterContainer');
 //template string tags 
 const templateProductTags = (product) => {
   return ` <div class="itemContainer">
@@ -17,17 +18,48 @@ const templateProductTags = (product) => {
 const deleteButtonTags = () => {
   return `<button class="delete">Borrar filtros</button>`
 };
+const sellerTags = () => {
+  return `
+  <select id="sellersOption">
+        <option class="sellerOption" value="default">-</option>
+        <option class="sellerOption" value="apple">Apple</option>
+        <option class="sellerOption" value="hp">Hp</option>
+        <option class="sellerOption" value="dell">Dell</option>
+        <option class="sellerOption" value="huawei">Huawei</option>
+  </select>
+  `
+}
+const priceTags = () => {
+  return `  
+  <input type="radio" id="1000" name="radio-group" value="1000">
+  <label for="1000">$1000</label>
 
+  <input type="radio" id="1500" name="radio-group" value="1500">
+  <label for="1500">$1500</label>
+
+  <input type="radio" id="2000" name="radio-group" value="2000">
+  <label for="2000">$2000</label>
+  `
+};
 //Render de los template strings
 const renderProductElements = (product) => {
   let template = templateProductTags(product);
-  productsSection.innerHTML += template
+  productsSection.innerHTML += template;
 };
 const renderDeleteButton = () => {
   const deleteButton = deleteButtonTags();
   filterSection.innerHTML += deleteButton;
 };
-
+const renderPriceTags = () => {
+  const price = priceTags();
+  priceFilterSection.innerHTML += price;
+}
+renderPriceTags();
+const renderSellerTags = () => {
+  const sellerSection = sellerTags();
+  sellerFilterSection.innerHTML += sellerSection
+}
+renderSellerTags()
 // Productos y fábrica de productos
 const products = [];
 const createProduct = (name, price, stars, reviews, seller, image) => {
@@ -60,35 +92,19 @@ products.forEach(product => renderProductElements(product));
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
 const selectSellerFilter = document.getElementById('sellersOption');
+
 let radio1000 = document.getElementById('1000');
 let radio1500 = document.getElementById('1500');
 let radio2000 = document.getElementById('2000');
-
-//fabrica de vendedores
-const SELLER_OPTIONS = {
-  'apple': 'Apple',
-  'hp': 'HP',
-  'dell': 'Dell',
-  'huawei': 'Huawei',
-};
-const addOptionsToSellerFilter = () => {
-  Object.keys(SELLER_OPTIONS).forEach((seller) => {
-    const option = document.createElement('option');
-    option.value = seller;
-    option.innerText = SELLER_OPTIONS[seller];
-    selectSellerFilter.append(option);
-  });
-};
-addOptionsToSellerFilter();
 
 //filtro por vendedor
 const filteredSellers = (selectedSeller) => {
   productsSection.innerHTML = '';
   if (selectedSeller == 'Default') {
     products.forEach(product => renderProductElements(product));
-  }
+  };
   seller = products.filter(product => product.seller == selectedSeller);
-  seller.forEach(seller => renderProductElements(seller))
+  seller.forEach(seller => renderProductElements(seller));
 };
 
 //filtro por precio
@@ -96,7 +112,7 @@ const filteredPrices = (price) => {
   productsSection.innerHTML = '';
   price = products.filter(product => product.price == price);
   price.forEach(product => renderProductElements(product))
-}
+};
 //borrar filtros
 const deleteFilters = () => {
   productsSection.innerHTML = ''
@@ -108,7 +124,6 @@ const deleteFilters = () => {
 
 //EventListeners
 deleteButton.addEventListener('click', deleteFilters);
-
 selectSellerFilter.addEventListener('change', (ev) => {
   const selectedSeller = ev.target.value;
   const selectedSellerCapital = selectedSeller.charAt(0).toUpperCase() + selectedSeller.slice(1);
@@ -117,10 +132,10 @@ selectSellerFilter.addEventListener('change', (ev) => {
 
 radio1000.addEventListener('change', (ev) => {
   filteredPrices(ev.target.value)
-})
+});
 radio1500.addEventListener('change', (ev) => {
   filteredPrices(ev.target.value)
-})
+});
 radio2000.addEventListener('change', (ev) => {
   filteredPrices(ev.target.value)
 });
