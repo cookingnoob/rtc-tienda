@@ -83,6 +83,9 @@ addOptionsToSellerFilter();
 //filtro por vendedor
 const filteredSellers = (selectedSeller) => {
   productsSection.innerHTML = '';
+  if (selectedSeller == 'Default') {
+    products.forEach(product => renderProductElements(product));
+  }
   seller = products.filter(product => product.seller == selectedSeller);
   seller.forEach(seller => renderProductElements(seller))
 };
@@ -99,7 +102,7 @@ const deleteFilters = () => {
   products.forEach(product => renderProductElements(product));
   radio1000.checked = false;
   radio1500.checked = false;
-  radio2000.checked = false
+  radio2000.checked = false;
 };
 
 //EventListeners
