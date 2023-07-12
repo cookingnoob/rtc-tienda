@@ -11,10 +11,23 @@
 <body>
   <section class="filter">
 
-    <h2>Filtra por vendedor:</h2>
-    <select id="sellersOption">
-      <option class="sellerOption" value="todos">Todos</option>
-    </select>
+    <div>
+      <h3>Filtra por vendedor:</h3>
+      <select id="sellersOption">
+        <option class="sellerOption" value="todos">Todos</option>
+      </select>
+    </div>
+    <div>
+      <h3>Filtra por precio:</h3>
+      <input type="radio" id="1000" name="radio-group" value="1000">
+      <label for="1000">$1000</label>
+
+      <input type="radio" id="1500" name="radio-group" value="1500">
+      <label for="1500">$1500</label>
+
+      <input type="radio" id="2000" name="radio-group" value="2000">
+      <label for="2000">$2000</label>
+    </div>
 
   </section>
   <section class="products"></section>

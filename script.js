@@ -13,15 +13,6 @@ const templateProductTags = (product) => {
 </div>`
   /* <img src="${product.image}" alt="${product.name}"> */
 };
-const filterByPriceTags = () => {
-  return `
-  <label for="1000">$1000</label>
-  <input type="radio" name="1000" id="1000" class="priceInput">
-  <label for="1500">$1500</label>
-  <input type="radio" name="1500" id="1500" class="priceInput">
-  <label for="1000">$2000</label>
-  <input type="radio" name="2000" id="2000" class="priceInput">`
-};
 const deleteButtonTags = () => {
   return `<button class="delete">Borrar filtros</button>`
 };
@@ -30,10 +21,6 @@ const deleteButtonTags = () => {
 const renderProductElements = (product) => {
   let template = templateProductTags(product);
   productsSection.innerHTML += template
-};
-const renderFilterByPrice = () => {
-  let priceTags = filterByPriceTags();
-  filterSection.innerHTML += priceTags
 };
 const renderDeleteButton = () => {
   const deleteButton = deleteButtonTags();
@@ -69,9 +56,6 @@ listOfProducts();
 
 //invocación del render y agregarlo al DOM
 products.forEach(product => renderProductElements(product));
-
-// renderFilterByPrice();
-const priceFilters = document.querySelectorAll('.priceInput');
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
 const selectSellerFilter = document.getElementById('sellersOption');
@@ -92,6 +76,7 @@ const addOptionsToSellerFilter = () => {
   });
 };
 addOptionsToSellerFilter();
+
 //filtro por vendedor
 const filteredSellers = (selectedSeller) => {
   productsSection.innerHTML = '';
@@ -100,9 +85,9 @@ const filteredSellers = (selectedSeller) => {
 };
 
 //filtro por precio
-const filteredPrices = () => {
+const filteredPrices = (price) => {
   productsSection.innerHTML = '';
-  price = products.filter(product => product.price == 1000);
+  price = products.filter(product => product.price == price);
   price.forEach(product => renderProductElements(product))
 }
 //borrar filtros
@@ -120,3 +105,18 @@ selectSellerFilter.addEventListener('change', (ev) => {
   filteredSellers(selectedSellerCapital)
 });
 
+
+
+let radio1000 = document.getElementById('1000');
+let radio1500 = document.getElementById('1500');
+let radio2000 = document.getElementById('2000');
+
+radio1000.addEventListener('change', (ev) => {
+  filteredPrices(ev.target.value)
+})
+radio1500.addEventListener('change', (ev) => {
+  filteredPrices(ev.target.value)
+})
+radio2000.addEventListener('change', (ev) => {
+  filteredPrices(ev.target.value)
+});
