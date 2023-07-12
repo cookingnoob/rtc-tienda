@@ -13,16 +13,6 @@ const templateProductTags = (product) => {
 </div>`
   /* <img src="${product.image}" alt="${product.name}"> */
 };
-const filterSellerTemplate = () => {
-  return `
-  <select name="seller" id="sellersOption">
-    <option value="default">Todos</option>
-    <option value="apple">Apple</option>
-    <option value="hp">HP</option>
-    <option value="dell">Dell</option>
-    <option value="huawei">Huawei</option>
-  </select>`
-};
 const filterByPriceTags = () => {
   return `
   <label for="1000">$1000</label>
@@ -40,10 +30,6 @@ const deleteButtonTags = () => {
 const renderProductElements = (product) => {
   let template = templateProductTags(product);
   productsSection.innerHTML += template
-};
-const renderSellerFilter = () => {
-  let filters = filterSellerTemplate();
-  filterSection.innerHTML += filters
 };
 const renderFilterByPrice = () => {
   let priceTags = filterByPriceTags();
@@ -83,15 +69,35 @@ listOfProducts();
 
 //invocación del render y agregarlo al DOM
 products.forEach(product => renderProductElements(product));
-// renderSellerFilter();
-// const sellerSection = document.getElementById('sellersOption');
+
 // renderFilterByPrice();
 const priceFilters = document.querySelectorAll('.priceInput');
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
+const selectSellerFilter = document.getElementById('sellersOption');
 
+//fabrica de vendedores
+const SELLER_OPTIONS = {
+  'apple': 'Apple',
+  'hp': 'HP',
+  'dell': 'Dell',
+  'huawei': 'Huawei',
+};
+const addOptionsToSellerFilter = () => {
+  Object.keys(SELLER_OPTIONS).forEach((seller) => {
+    const option = document.createElement('option');
+    option.value = seller;
+    option.innerText = SELLER_OPTIONS[seller];
+    selectSellerFilter.append(option);
+  });
+};
+addOptionsToSellerFilter();
 //filtro por vendedor
-
+const filteredSellers = (selectedSeller) => {
+  productsSection.innerHTML = '';
+  seller = products.filter(product => product.seller == selectedSeller);
+  seller.forEach(seller => renderProductElements(seller))
+};
 
 //filtro por precio
 const filteredPrices = () => {
@@ -107,33 +113,6 @@ const deleteFilters = () => {
 
 //EventListeners
 deleteButton.addEventListener('click', deleteFilters);
-
-
-
-const selectSellerFilter = document.getElementById('sellersOption');
-
-const SELLER_OPTIONS = {
-  'apple': 'Apple',
-  'hp': 'HP',
-  'dell': 'Dell',
-  'huawei': 'Huawei',
-}
-
-const addOptionsToSellerFilter = () => {
-  Object.keys(SELLER_OPTIONS).forEach((seller) => {
-    const option = document.createElement('option');
-    option.value = seller;
-    option.innerText = SELLER_OPTIONS[seller];
-    selectSellerFilter.append(option);
-  });
-};
-addOptionsToSellerFilter();
-
-const filteredSellers = (selectedSeller) => {
-  productsSection.innerHTML = '';
-  seller = products.filter(product => product.seller == selectedSeller);
-  seller.forEach(seller => renderProductElements(seller))
-};
 
 selectSellerFilter.addEventListener('change', (ev) => {
   const selectedSeller = ev.target.value;
