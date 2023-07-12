@@ -29,7 +29,7 @@ const sellerTags = () => {
   </select>
   `
 }
-const priceTags = () => {
+const priceTagsRadio = () => {
   return `  
   <input type="radio" id="1000" name="radio-group" value="1000">
   <label for="1000">$1000</label>
@@ -41,6 +41,12 @@ const priceTags = () => {
   <label for="2000">$2000</label>
   `
 };
+const priceTagsTypeNumber = () => {
+  return `
+  <h3>Presupuesto máximo: </h3>
+  <input type="number" min="1000" max="2000" step="500" value="2000" id="filterByNumber">
+  `
+}
 //Render de los template strings
 const renderProductElements = (product) => {
   let template = templateProductTags(product);
@@ -50,11 +56,18 @@ const renderDeleteButton = () => {
   const deleteButton = deleteButtonTags();
   filterSection.innerHTML += deleteButton;
 };
-const renderPriceTags = () => {
-  const price = priceTags();
+const renderPriceTagsRadio = () => {
+  const price = priceTagsRadio();
   priceFilterSection.innerHTML += price;
 }
-renderPriceTags();
+renderPriceTagsRadio();
+
+const renderPriceTagsNumber = () => {
+  const price = priceTagsTypeNumber();
+  priceFilterSection.innerHTML += price;
+}
+renderPriceTagsNumber()
+
 const renderSellerTags = () => {
   const sellerSection = sellerTags();
   sellerFilterSection.innerHTML += sellerSection
@@ -92,7 +105,7 @@ products.forEach(product => renderProductElements(product));
 renderDeleteButton();
 const deleteButton = document.querySelector('.delete');
 const selectSellerFilter = document.getElementById('sellersOption');
-
+let filterPriceNumber = document.getElementById('filterByNumber');
 let radio1000 = document.getElementById('1000');
 let radio1500 = document.getElementById('1500');
 let radio2000 = document.getElementById('2000');
@@ -107,23 +120,32 @@ const filteredSellers = (selectedSeller) => {
   seller.forEach(seller => renderProductElements(seller));
 };
 
-//filtro por precio
+//filtro por precio radio
 const filteredPrices = (price) => {
   productsSection.innerHTML = '';
   price = products.filter(product => product.price == price);
   price.forEach(product => renderProductElements(product))
 };
+//filtro por precio numero
+const filterByPrice = (filteredPrice) => {
+  productsSection.innerHTML = '';
+  price = products.filter(product => product.price <= filteredPrice);
+  price.forEach(product => renderProductElements(product));
+}
 //borrar filtros
 const deleteFilters = () => {
   productsSection.innerHTML = ''
   products.forEach(product => renderProductElements(product));
+  selectSellerFilter.selectedIndex = 0;
   radio1000.checked = false;
   radio1500.checked = false;
   radio2000.checked = false;
+  filterPriceNumber.value = 2000;
 };
 
 //EventListeners
 deleteButton.addEventListener('click', deleteFilters);
+
 selectSellerFilter.addEventListener('change', (ev) => {
   const selectedSeller = ev.target.value;
   const selectedSellerCapital = selectedSeller.charAt(0).toUpperCase() + selectedSeller.slice(1);
@@ -139,3 +161,8 @@ radio1500.addEventListener('change', (ev) => {
 radio2000.addEventListener('change', (ev) => {
   filteredPrices(ev.target.value)
 });
+filterPriceNumber.addEventListener('change', (ev) => {
+  const filteredPrice = ev.target.value;
+  filterByPrice(filteredPrice);
+})
+
