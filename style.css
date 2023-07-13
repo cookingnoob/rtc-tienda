@@ -1,67 +1,137 @@
 body{
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+nav{
+background-color: rgb(255, 125, 45);
+color: rgb(255, 255, 255);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+main{
   display: flex;
 }
 .filter{
 width: 20vw;
-height: 100%;
-border: 1px solid beige;
+display: flex;
+flex-direction: column;
+justify-content:flex-start;
+align-items: center;
+}
+.delete{
+  width: 200px;
+  background-color: rgb(118, 118, 118);
+  color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+}
+.sellerFilterContainer{
+height: 250px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.priceFilterContainer{
+height: 250px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.radioContainer{
+  display: flex;
 }
 .products{
 width: 80vw;
-height: 100%;
 display: grid;
-grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 gap: 10px;
 }
 .itemContainer{
+  margin-top: 10px;
+  margin-left: 5px;
   border: 1px solid black;
   border-radius: 5px;
-  width: 80%;
-  height: ;
-  display: flex;
-  flex-direction: column;
+  width: 200px;
+  height: auto;
+  display: grid;
   justify-content: center;
+  grid-template-areas: "img img"
+                       "img img"
+                       "product seller"
+                       "price price"
+                       "reviews stars";
 }
 .itemContainer > img {
-  width: 80%;
+  width: 180px;
+  grid-area: img;
+  margin-top: 5px;
+}
+.name{
+  grid-area: product;
+}
+.seller{
+  grid-area: seller;
+  margin-left: 30px;
+}
+.price{
+  grid-area: price;
+  color: rgb(178, 25, 25);
+}
+.stars{
+  grid-area: stars;
+}
+.reviews{
+  grid-area: reviews;
 }
 .itemContainer:hover{
   cursor: pointer;
   background-color: rgb(215, 214, 214);
 }
+footer{
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(81, 72, 89);
+  color: rgb(231, 236, 240);
+}
 
 @media (max-width: 800px) {
-  body{
+  main{
     display: flex;
     flex-direction: column;
-    font-size: large;
   }
   .filter{
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
   .products{
-    width: 100%;
-    height: 100%;
     display: grid;
-    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    }
+    justify-content: space-evenly;
+    align-items: ;
+    grid-template-columns: repeat(auto-fill,200px );
+  }
+  .itemContainer{
+    width: 200px;
+    margin: 20px;
+  }
   #filterByNumber,
-  #sellersOption,
+  #sellersOption{
+    width: 100px;
+    text-align: center;
+  }
   .delete{
     height: 50px;
-    width: 100px;
-    font-size: large;
   }
-  .delete{
-    background-color: rgb(118, 118, 118);
-    color: whitesmoke;
-    top: -20px;
+  .radioContainer{
+    display: none;
   }
 }
+

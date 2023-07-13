@@ -31,6 +31,8 @@ const sellerTags = () => {
 }
 const priceTagsRadio = () => {
   return `  
+  <div class="radioContainer">
+  <h3 class="radioTitle">Filtra por precio:</h3>
   <input type="radio" id="1000" name="radio-group" value="1000">
   <label for="1000">$1000</label>
 
@@ -39,6 +41,7 @@ const priceTagsRadio = () => {
 
   <input type="radio" id="2000" name="radio-group" value="2000">
   <label for="2000">$2000</label>
+  </div>
   `
 };
 const priceTagsTypeNumber = () => {
