@@ -46,8 +46,10 @@ const priceTagsRadio = () => {
 };
 const priceTagsTypeNumber = () => {
   return `
+  <div>
   <h3>Presupuesto máximo: </h3>
   <input type="number" min="1000" max="2000" step="500" value="2000" id="filterByNumber">
+  </div>
   `
 }
 //Render de los template strings

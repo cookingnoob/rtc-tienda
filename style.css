@@ -1,16 +1,92 @@
+
 body{
   margin: 0;
   padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  background-color: black;
+  color: rgb(242, 243, 245);
 }
 nav{
-background-color: rgb(255, 125, 45);
-color: rgb(255, 255, 255);
-display: flex;
-justify-content: center;
-align-items: center;
+  padding: 5px;
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav > img{
+  width: 5vw;
+  margin-left: 70px;
+}
+nav > p{
+  font-size: large;
+  margin-right: 10px;
+  position: relative;
+}
+
+.dropdown{
+  color:rgb(76, 76, 76);
+  background-color: rgb(255, 255, 255);
+  width: 170px;
+  height: 290px;
+  width: 200px;
+  position: absolute;
+  top: 20px;
+  right: 0px; 
+  display: none; 
+  z-index: 1;
+}
+
+.dropdown > ul{
+  list-style: none;
+}
+.dropdown > ul > li{
+  width: 170px;
+  position: relative;
+  right: 40px;
+  border-bottom: 1px solid orange;
+  margin-bottom: 30px; 
+}
+nav > p:hover ~.dropdown{
+  cursor: pointer;
+  display: block; 
+}
+.dropdown:hover{
+  display: block; 
+}
+.dropdown > ul > li:hover{
+  display: block;
+  background-color: orange;
+  height: 50px;
+  color: white;
+  cursor: pointer; 
+}
+.blog > div{
+  display: flex;
+  justify-content: center;
+}
+.blog > div:hover{
+  
+}
+.blog > div >img{
+  width: 100vw;
+  position: relative;
+}
+.blog > div > img:hover{
+  cursor: pointer;
+}
+.shade{
+  background-color: rgba(104, 104, 104, 0.567);
+  width: 100vw;
+  height: 322px;
+  position: absolute;
+  display: none;
+}
+.blog > div > img:hover ~.shade{
+  cursor: pointer;
+  display: block;
 }
 main{
   display: flex;
@@ -19,39 +95,65 @@ main{
 width: 20vw;
 display: flex;
 flex-direction: column;
-justify-content:flex-start;
+justify-content: space-evenly;
 align-items: center;
 }
 .delete{
   width: 200px;
-  background-color: rgb(118, 118, 118);
+  background-color:rgb(249, 135, 60);
+  height: 50px;
   color: whitesmoke;
   border: none;
   border-radius: 5px;
+  font-size: large;
+}
+.delete:hover{
+  cursor: pointer;
+  background-color: rgb(214, 86, 0);
 }
 .sellerFilterContainer{
-height: 250px;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 }
+.sellerFilterContainer > h3{
+  border-bottom: 1px solid rgb(242, 243, 245);
+}
 .priceFilterContainer{
-height: 250px;
-display: flex;
-flex-direction: column;
-align-items: center;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+#sellersOption,
+#filterByNumber{
+  width: 10rem;
+  border: none;
+  border-radius: 15px;
+  background-color: rgb(242, 243, 245);
+  text-align: center;
+  color: rgb(76, 76, 76);
+}
+#sellersOption:hover,
+#filterByNumber: :hover{
+cursor: pointer;
 }
 .radioContainer{
-  display: flex;
+  
 }
 .products{
 width: 80vw;
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+grid-template-rows: repeat(auto-fill, 400px);
 gap: 10px;
+margin-bottom: 30px;
 }
 .itemContainer{
+  background-color: white;
+  color: black;
   margin-top: 10px;
   margin-left: 5px;
   border: 1px solid black;
@@ -93,7 +195,6 @@ gap: 10px;
   background-color: rgb(215, 214, 214);
 }
 footer{
-  margin-top: auto;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -129,6 +230,7 @@ footer{
   }
   .delete{
     height: 50px;
+  
   }
   .radioContainer{
     display: none;
